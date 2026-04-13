@@ -25,32 +25,52 @@ npm install memfs-extra memfs @types/fs-extra
 
 ## 使用範例 (Usage Example)
 
+### 使用 extendWithFsExtraApi（使用 memfs 匯出的 fs）
+
 ```typescript
-import { Volume } from 'memfs';
+import { fs } from 'memfs';
 import { extendWithFsExtraApi } from 'memfs-extra';
 
-// 建立 memfs Volume 並擴展為 fs-extra 風格 API
-// Create memfs Volume and extend with fs-extra style APIs
-const vol = new Volume();
-const fs = extendWithFsExtraApi(vol);
+// 直接傳入 memfs 匯出的 fs 物件
+// Pass memfs exported fs object
+const fse = extendWithFsExtraApi(fs);
+
+// 使用相同的 API
+await fse.mkdirs('/tmp/dir');
+```
+
+### 使用 extendWithFsExtraApiFromVolume（使用 memfs 匯出的 vol）
+
+```typescript
+import { vol } from 'memfs';
+import { extendWithFsExtraApiFromVolume, getVolumeFromFs } from 'memfs-extra';
+
+// vol 是 memfs 匯出的預設 Volume 實例
+// vol is memfs exported default Volume instance
+const fse = extendWithFsExtraApiFromVolume(vol);
 
 // 建立目錄 / Create directory
-await fs.mkdirs('/tmp/dir/subdir');
+await fse.mkdirs('/tmp/dir/subdir');
 
 // 寫入檔案（會自動創建父目錄）/ Write file (auto-creates parent directories)
-await fs.outputFile('/tmp/dir/file.txt', 'Hello World');
+await fse.outputFile('/tmp/dir/file.txt', 'Hello World');
 
 // 讀取 JSON / Read JSON
-const data = await fs.readJson('/tmp/data.json');
+const data = await fse.readJson('/tmp/data.json');
 
 // 複製檔案 / Copy file
-await fs.copy('/tmp/source.txt', '/tmp/dest.txt');
+await fse.copy('/tmp/source.txt', '/tmp/dest.txt');
 
 // 移動檔案 / Move file
-await fs.move('/tmp/old.txt', '/tmp/new.txt');
+await fse.move('/tmp/old.txt', '/tmp/new.txt');
 
 // 移除檔案 / Remove file
-await fs.remove('/tmp/dir');
+await fse.remove('/tmp/dir');
+
+// 取得底層 Volume（可用於儲存/還原狀態、複製等）
+// Get underlying Volume (for save/restore state, clone, etc.)
+const originalVol = getVolumeFromFs(fse);
+const data = originalVol.toJSON();
 ```
 
 ## API 清單 (API List)

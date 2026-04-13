@@ -243,3 +243,5 @@ test/fixtures/.gitkeep
 !.aiassistant
 
 .nx
+.github/
+.idea/

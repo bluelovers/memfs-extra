@@ -1,12 +1,61 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.extendWithFsExtraApiFromVolume = extendWithFsExtraApiFromVolume;
 exports.extendWithFsExtraApi = extendWithFsExtraApi;
+exports.getVolumeFromFs = getVolumeFromFs;
 exports._unSupportMethods = _unSupportMethods;
+const memfs_1 = require("memfs");
 const path_1 = require("path");
+/**
+ * 使用 fs-extra 風格 API 擴展 memfs Volume 實例
+ * Extend memfs Volume with fs-extra style APIs
+ *
+ * @param vol - 要擴展的 Volume 實例（由 memfs 匯出 或 new Volume() 建立）/ Volume instance to extend
+ * @returns 擴展後的檔案系統 API / Extended file system APIs
+ *
+ * @example
+ * ```typescript
+ * import { vol } from 'memfs';
+ * import { extendWithFsExtraApiFromVolume } from 'memfs-extra';
+ *
+ * // vol 是 memfs 匯出的預設 Volume 實例
+ * // vol is memfs exported default Volume instance
+ * const fse = extendWithFsExtraApiFromVolume(vol);
+ * await fse.mkdirs('/tmp/dir');
+ * await fse.writeFile('/tmp/file.txt', 'content');
+ * ```
+ *
+ * @see extendWithFsExtraApi - 如果使用 memfs 匯出的 fs，使用此函式
+ */
+function extendWithFsExtraApiFromVolume(vol) {
+    return extendWithFsExtraApi((0, memfs_1.createFsFromVolume)(vol));
+}
+/**
+ * 使用 fs-extra 風格 API 擴展 memfs
+ * Extend memfs with fs-extra style APIs
+ *
+ * @param fs - 要擴展的 memfs 檔案系統實例（由 memfs 匯出）/ memfs filesystem instance (exported from memfs)
+ * @returns 擴展後的檔案系統 API / Extended file system APIs
+ *
+ * @example
+ * ```typescript
+ * import { fs } from 'memfs';
+ * import { extendWithFsExtraApi } from 'memfs-extra';
+ *
+ * // 傳入 memfs 匯出的 fs 物件
+ * // Pass memfs exported fs object
+ * const fse = extendWithFsExtraApi(fs);
+ * await fse.mkdirs('/tmp/dir');
+ * await fse.writeFile('/tmp/file.txt', 'content');
+ * ```
+ *
+ * @see extendWithFsExtraApiFromVolume - 如果使用 new Volume()，使用此函式
+ */
 function extendWithFsExtraApi(fs) {
     const fse = {
         ...fs,
-        // path-exists
+        // ==================== Path Exists / 路徑存在檢查 ====================
+        /** 檢查路徑是否存在（非同步）/ Check if path exists (async) */
         pathExists: async (path) => {
             try {
                 await fs.promises.access(path);
@@ -19,7 +68,8 @@ function extendWithFsExtraApi(fs) {
         pathExistsSync: (path) => {
             return fs.existsSync(path);
         },
-        // mkdirs
+        // ==================== Mkdirs / 目錄創建 ====================
+        /** 遞迴創建目錄（非同步）/ Create directory recursively (async) */
         mkdirs: async (dir, options) => {
             return fs.promises.mkdir(dir, { recursive: true, ...options });
         },
@@ -30,14 +80,16 @@ function extendWithFsExtraApi(fs) {
         mkdirpSync: (dir, options) => fse.mkdirsSync(dir, options),
         ensureDir: async (dir, options) => fse.mkdirs(dir, options),
         ensureDirSync: (dir, options) => fse.mkdirsSync(dir, options),
-        // remove
+        // ==================== Remove / 移除 ====================
+        /** 遞迴移除檔案或目錄（非同步）/ Recursively remove file or directory (async) */
         remove: async (path) => {
             return fs.promises.rm(path, { recursive: true, force: true });
         },
         removeSync: (path) => {
             return fs.rmSync(path, { recursive: true, force: true });
         },
-        // outputFile
+        // ==================== Output File / 輸出檔案 ====================
+        /** 寫入檔案並自動創建父目錄（非同步）/ Write file and auto-create parent directories (async) */
         outputFile: async (file, data, options) => {
             const dir = (0, path_1.dirname)(file);
             if (!fse.pathExistsSync(dir)) {
@@ -52,7 +104,8 @@ function extendWithFsExtraApi(fs) {
             }
             return fs.writeFileSync(file, data, options);
         },
-        // JSON
+        // ==================== JSON / JSON 處理 ====================
+        /** 讀取並解析 JSON 檔案（非同步）/ Read and parse JSON file (async) */
         readJson: async (file, options) => {
             const content = await fs.promises.readFile(file, options);
             return JSON.parse(content.toString());
@@ -83,7 +136,8 @@ function extendWithFsExtraApi(fs) {
             }
             return fse.writeJsonSync(file, obj, options);
         },
-        // emptyDir
+        // ==================== Empty Dir / 清空目錄 ====================
+        /** 清空目錄內容但保留目錄本身（非同步）/ Empty directory contents but keep directory (async) */
         emptyDir: async (dir) => {
             let items;
             try {
@@ -105,6 +159,8 @@ function extendWithFsExtraApi(fs) {
             }
             items.forEach(item => fse.removeSync((0, path_1.join)(dir, item)));
         },
+        // ==================== Ensure Link / 確保連結 ====================
+        /** 確保硬連結存在（非同步）/ Ensure hard link exists (async) */
         ensureLink: async (src, dest) => {
             if (fse.pathExistsSync(dest))
                 return;
@@ -117,6 +173,8 @@ function extendWithFsExtraApi(fs) {
             fse.mkdirsSync((0, path_1.dirname)(dest));
             return fs.linkSync(src, dest);
         },
+        // ==================== Ensure Symlink / 確保符號連結 ====================
+        /** 確保符號連結存在（非同步）/ Ensure symbolic link exists (async) */
         ensureSymlink: async (src, dest, type) => {
             if (fse.pathExistsSync(dest))
                 return;
@@ -129,7 +187,8 @@ function extendWithFsExtraApi(fs) {
             fse.mkdirsSync((0, path_1.dirname)(dest));
             return fs.symlinkSync(src, dest, type);
         },
-        // move
+        // ==================== Move / 移動 ====================
+        /** 移動或重新命名檔案/目錄（非同步）/ Move or rename file/directory (async) */
         move: async (src, dest, options) => {
             if ((options === null || options === void 0 ? void 0 : options.overwrite) === false && fse.pathExistsSync(dest)) {
                 if (options === null || options === void 0 ? void 0 : options.errorOnExist)
@@ -148,7 +207,8 @@ function extendWithFsExtraApi(fs) {
             fse.mkdirsSync((0, path_1.dirname)(dest));
             return fs.renameSync(src, dest);
         },
-        // copy
+        // ==================== Copy / 複製 ====================
+        /** 複製檔案或目錄（非同步）/ Copy file or directory (async) */
         copy: async (src, dest, options) => {
             const stat = await fs.promises.stat(src);
             if (stat.isDirectory()) {
@@ -184,17 +244,25 @@ function extendWithFsExtraApi(fs) {
             }
             return fse.copySync(src, dest, options);
         },
-        // mkdtempDisposableSync
+        // ==================== Special / 特殊功能 ====================
+        /**
+         * 建立可處置的臨時目錄 / Create disposable temporary directory
+         *
+         * @see https://node.org.cn/api/fs.html#fsmkdtempdisposablesyncprefix-options
+         */
         mkdtempDisposableSync: ((prefix, options) => {
             const path = fs.mkdtempSync(prefix, options);
+            const remove = () => fse.removeSync(path);
             const disposable = {
                 path,
                 [Symbol.dispose || Symbol.for('Symbol.dispose')]: () => {
                     fse.removeSync(path);
                 },
-                dispose: () => {
-                    fse.removeSync(path);
-                },
+                /**
+                 * 官方不存在此屬性
+                 */
+                dispose: remove,
+                remove,
             };
             return disposable;
         }),
@@ -214,7 +282,8 @@ function extendWithFsExtraApi(fs) {
                 ffree: 0,
             };
         },
-        // ensureFile
+        // ==================== Ensure File / 確保檔案 ====================
+        /** 確保檔案存在 / Ensure file exists */
         ensureFile: async (file) => {
             if (fse.pathExistsSync(file))
                 return;
@@ -245,6 +314,50 @@ function extendWithFsExtraApi(fs) {
     fse.outputJSONSync = fse.outputJsonSync;
     return fse;
 }
+/**
+ * 從擴展後的 fs 實例取得底層 Volume
+ * Get underlying Volume from extended fs instance
+ *
+ * @param fs - 擴展後的檔案系統實例 / Extended filesystem instance
+ * @returns 底層的 Volume 實例 / Underlying Volume instance
+ *
+ * @example
+ * ```typescript
+ * import { fs } from 'memfs';
+ * import { extendWithFsExtraApi, getVolumeFromFs } from 'memfs-extra';
+ *
+ * // 擴展 fs
+ * const fse = extendWithFsExtraApi(fs);
+ *
+ * // 執行一些操作
+ * await fse.writeFile('/test.txt', 'Hello');
+ *
+ * // 取得底層 Volume
+ * const originalVol = getVolumeFromFs(fse);
+ *
+ * // 可以用於：儲存/還原狀態、複製fs、取得原始資料等
+ * // Use for: save/restore state, clone fs, get raw data, etc.
+ * const data = originalVol.toJSON();
+ * console.log(data); // { "/test.txt": <Buffer> }
+ * ```
+ *
+ * @internal
+ */
+function getVolumeFromFs(fs) {
+    /**
+     * 來自官方原始碼
+     */
+    return fs.__vol;
+}
+/**
+ * 取得不支援的方法清單
+ * Get list of unsupported methods
+ *
+ * @returns 不支援的 fs-extra 方法名稱陣列 / Array of unsupported fs-extra method names
+ *
+ * @description 這些方法在 memfs 中無法實現或是因為瀏覽器環境限制
+ * These methods cannot be implemented in memfs due to browser environment limitations
+ */
 function _unSupportMethods() {
     return [
         'FileReadStream',
