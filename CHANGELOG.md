@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/bluelovers/memfs-extra/compare/memfs-extra@1.0.3...memfs-extra@1.0.4) (2026-04-13)
+
+
+
+### 📚　Documentation
+
+* 為 API 與型別新增完整雙語 JSDoc 並更新 README 說明 ([516c88c](https://github.com/bluelovers/memfs-extra/commit/516c88c178f19229c1d4f6782e7a73783e70e26a))
+
+
+### 🚨　Tests
+
+* **jest-mock:** 更新支援 unionfs ([c5ff0d8](https://github.com/bluelovers/memfs-extra/commit/c5ff0d8bdeceda913c5ded063f066ef7ab0f832d))
+
+
+
 ## [1.0.3](https://github.com/bluelovers/memfs-extra/compare/memfs-extra@1.0.2...memfs-extra@1.0.3) (2026-04-13)
 
 
