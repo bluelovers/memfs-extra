@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`unionfs extendWithFsExtraApi unionfs check others __vol 1`] = `"object"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others FSWatcher 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others ReadStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others StatWatcher 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others WriteStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others promises 1`] = `"object"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others realpath 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs check others realpathSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys _toUnixTimestamp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys Dirent 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys ReadStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys Stats 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys WriteStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys access 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys accessSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys appendFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys appendFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys chmod 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys chmodSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys chown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys chownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys close 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys closeSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys copyFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys copyFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys cp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys cpSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys createReadStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys createWriteStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys exists 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys existsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fchmod 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fchmodSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fchown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fchownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fdatasync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fdatasyncSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fstat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fstatSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fsync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys fsyncSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys ftruncate 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys ftruncateSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys futimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys futimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys glob 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys globSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lchown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lchownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys link 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys linkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lstat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lstatSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lutimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys lutimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys mkdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys mkdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys mkdtemp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys mkdtempDisposableSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys mkdtempSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys open 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys openAsBlob 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys openSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys opendir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys opendirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys read 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readv 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys readvSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys realpath 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys realpathSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys rename 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys renameSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys rm 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys rmSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys rmdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys rmdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys stat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys statSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys statfs 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys statfsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys symlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys symlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys truncate 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys truncateSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys unlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys unlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys unwatchFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys utimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys utimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys watch 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys watchFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys write 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys writeFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys writeFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys writeSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys writev 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs keys writevSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys _toUnixTimestamp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys Dirent 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ReadStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys Stats 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys WriteStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys access 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys accessSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys appendFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys appendFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys chmod 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys chmodSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys chown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys chownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys close 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys closeSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys copy 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys copyFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys copyFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys copySync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys cp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys cpSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createLink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createLinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createReadStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createSymlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createSymlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys createWriteStream 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys emptyDir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys emptyDirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys emptydir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys emptydirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureDir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureDirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureLink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureLinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureSymlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ensureSymlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys exists 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys existsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fchmod 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fchmodSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fchown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fchownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fdatasync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fdatasyncSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fstat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fstatSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fsync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys fsyncSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ftruncate 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys ftruncateSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys futimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys futimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys glob 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys globSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lchmod 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lchmodSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lchown 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lchownSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys link 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys linkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lstat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lstatSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lutimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys lutimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdirp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdirpSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdirs 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdirsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdtemp 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdtempDisposableSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys mkdtempSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys move 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys moveSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys open 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys openAsBlob 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys openSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys opendir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys opendirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputJSON 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputJSONSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputJson 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys outputJsonSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys pathExists 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys pathExistsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys read 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readJSON 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readJSONSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readJson 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readJsonSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readv 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys readvSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys realpath 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys realpathSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys remove 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys removeSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys rename 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys renameSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys rm 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys rmSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys rmdir 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys rmdirSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys stat 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys statSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys statfs 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys statfsSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys symlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys symlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys truncate 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys truncateSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys unlink 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys unlinkSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys unwatchFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys utimes 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys utimesSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys watch 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys watchFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys write 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeFile 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeFileSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeJSON 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeJSONSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeJson 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeJsonSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writeSync 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writev 1`] = `"function"`;
+
+exports[`unionfs extendWithFsExtraApi unionfs should have all expected fs-extra keys writevSync 1`] = `"function"`;

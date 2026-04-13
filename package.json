@@ -33,7 +33,7 @@
     "lint": "node --run lint:eslint --",
     "lint:eslint": "ynpx eslint --ext .ts,.tsx,.mts,.cts ./",
     "pretest": "pnpm run build",
-    "test": "node --run test:jest --",
+    "test": "node --run test:jest:snapshot --",
     "test:jest": "jest --passWithNoTests",
     "test:jest:clearCache": "jest --clearCache",
     "test:jest:coverage": "node --run test:jest -- --coverage",

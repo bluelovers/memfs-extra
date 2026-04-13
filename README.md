@@ -137,7 +137,34 @@ const originalVol = getVolumeFromFs(fse);
 const data = originalVol.toJSON();
 ```
 
+## 擴展選項 (Extension Options)
+
+### IOptionMemFsExtra
+
+使用自定義選項來擴展 memfs-extra：
+
+```typescript
+import { fs } from 'memfs';
+import { extendWithFsExtraApi, IOptionMemFsExtra } from 'memfs-extra';
+
+/**
+ * 自訂如何取得 Volume 與底層 fs 實例
+ * Customize how to get Volume and underlying fs instance
+ */
+const opts: IOptionMemFsExtra = {
+	/** 自訂取得 Volume 的函式 / Custom function to get Volume */
+	getVolume: () => undefined,
+
+	/** 自訂取得底層 fs 的函式 / Custom function to get underlying fs */
+	getFs: () => undefined,
+};
+
+const fse = extendWithFsExtraApi(fs, opts);
+```
+
 ## API 清單 (API List)
+
+更多 API 詳細資訊請查閱 [JSDoc](./index.ts)。
 
 ### 路徑存在檢查 (Path Exists)
 - `pathExists(path)` - 非同步檢查路徑是否存在

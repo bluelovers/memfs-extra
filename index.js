@@ -3,14 +3,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.extendWithFsExtraApiFromVolume = extendWithFsExtraApiFromVolume;
 exports.extendWithFsExtraApi = extendWithFsExtraApi;
 exports.getVolumeFromFs = getVolumeFromFs;
-exports._unSupportMethods = _unSupportMethods;
+exports._unionfsFindMemFs = _unionfsFindMemFs;
+exports.extendWithFsExtraApiFromUnionfs = extendWithFsExtraApiFromUnionfs;
+exports._getUnsupportMethods = _getUnsupportMethods;
 const memfs_1 = require("memfs");
-const path_1 = require("path");
+const upath2_1 = require("upath2");
+const ts_type_predicates_1 = require("ts-type-predicates");
 /**
  * 使用 fs-extra 風格 API 擴展 memfs Volume 實例
  * Extend memfs Volume with fs-extra style APIs
  *
  * @param vol - 要擴展的 Volume 實例（由 memfs 匯出 或 new Volume() 建立）/ Volume instance to extend
+ * @param opts - 擴展選項 / Extend options
  * @returns 擴展後的檔案系統 API / Extended file system APIs
  *
  * @example
@@ -27,14 +31,15 @@ const path_1 = require("path");
  *
  * @see extendWithFsExtraApi - 如果使用 memfs 匯出的 fs，使用此函式
  */
-function extendWithFsExtraApiFromVolume(vol) {
-    return extendWithFsExtraApi((0, memfs_1.createFsFromVolume)(vol));
+function extendWithFsExtraApiFromVolume(vol, opts) {
+    return extendWithFsExtraApi((0, memfs_1.createFsFromVolume)(vol), opts);
 }
 /**
  * 使用 fs-extra 風格 API 擴展 memfs
  * Extend memfs with fs-extra style APIs
  *
  * @param fs - 要擴展的 memfs 檔案系統實例（由 memfs 匯出）/ memfs filesystem instance (exported from memfs)
+ * @param opts - 擴展選項 / Extend options
  * @returns 擴展後的檔案系統 API / Extended file system APIs
  *
  * @example
@@ -50,10 +55,22 @@ function extendWithFsExtraApiFromVolume(vol) {
  * ```
  *
  * @see extendWithFsExtraApiFromVolume - 如果使用 new Volume()，使用此函式
+ * @see extendWithFsExtraApiFromUnionfs - 如果使用 unionfs，使用此函式
  */
-function extendWithFsExtraApi(fs) {
+function extendWithFsExtraApi(fs, opts) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    const vol = (_b = (_a = opts === null || opts === void 0 ? void 0 : opts.getVolume) === null || _a === void 0 ? void 0 : _a.call(opts)) !== null && _b !== void 0 ? _b : fs.__vol;
+    /**
+     * @todo FIXME: https://github.com/streamich/unionfs/issues/810
+     */
+    const _fs = (_d = (_c = opts === null || opts === void 0 ? void 0 : opts.getFs) === null || _c === void 0 ? void 0 : _c.call(opts)) !== null && _d !== void 0 ? _d : {};
+    (0, ts_type_predicates_1.typePredicates)(fs);
     const fse = {
+        ..._fs,
         ...fs,
+        get __vol() {
+            return vol;
+        },
         // ==================== Path Exists / 路徑存在檢查 ====================
         /** 檢查路徑是否存在（非同步）/ Check if path exists (async) */
         pathExists: async (path) => {
@@ -91,14 +108,14 @@ function extendWithFsExtraApi(fs) {
         // ==================== Output File / 輸出檔案 ====================
         /** 寫入檔案並自動創建父目錄（非同步）/ Write file and auto-create parent directories (async) */
         outputFile: async (file, data, options) => {
-            const dir = (0, path_1.dirname)(file);
+            const dir = (0, upath2_1.dirname)(file);
             if (!fse.pathExistsSync(dir)) {
                 await fse.mkdirs(dir);
             }
             return fs.promises.writeFile(file, data, options);
         },
         outputFileSync: (file, data, options) => {
-            const dir = (0, path_1.dirname)(file);
+            const dir = (0, upath2_1.dirname)(file);
             if (!fse.pathExistsSync(dir)) {
                 fse.mkdirsSync(dir);
             }
@@ -123,14 +140,14 @@ function extendWithFsExtraApi(fs) {
             return fs.writeFileSync(file, str, options);
         },
         outputJson: async (file, obj, options) => {
-            const dir = (0, path_1.dirname)(file);
+            const dir = (0, upath2_1.dirname)(file);
             if (!fse.pathExistsSync(dir)) {
                 await fse.mkdirs(dir);
             }
             return fse.writeJson(file, obj, options);
         },
         outputJsonSync: (file, obj, options) => {
-            const dir = (0, path_1.dirname)(file);
+            const dir = (0, upath2_1.dirname)(file);
             if (!fse.pathExistsSync(dir)) {
                 fse.mkdirsSync(dir);
             }
@@ -147,7 +164,7 @@ function extendWithFsExtraApi(fs) {
                 return fse.mkdirs(dir);
             }
             // Use simple join for path to be cross-platform compatible in memfs
-            return Promise.all(items.map(item => fse.remove((0, path_1.join)(dir, item))));
+            return Promise.all(items.map(item => fse.remove((0, upath2_1.join)(dir, item))));
         },
         emptyDirSync: (dir) => {
             let items;
@@ -157,20 +174,20 @@ function extendWithFsExtraApi(fs) {
             catch {
                 return fse.mkdirsSync(dir);
             }
-            items.forEach(item => fse.removeSync((0, path_1.join)(dir, item)));
+            items.forEach(item => fse.removeSync((0, upath2_1.join)(dir, item)));
         },
         // ==================== Ensure Link / 確保連結 ====================
         /** 確保硬連結存在（非同步）/ Ensure hard link exists (async) */
         ensureLink: async (src, dest) => {
             if (fse.pathExistsSync(dest))
                 return;
-            await fse.mkdirs((0, path_1.dirname)(dest));
+            await fse.mkdirs((0, upath2_1.dirname)(dest));
             return fs.promises.link(src, dest);
         },
         ensureLinkSync: (src, dest) => {
             if (fse.pathExistsSync(dest))
                 return;
-            fse.mkdirsSync((0, path_1.dirname)(dest));
+            fse.mkdirsSync((0, upath2_1.dirname)(dest));
             return fs.linkSync(src, dest);
         },
         // ==================== Ensure Symlink / 確保符號連結 ====================
@@ -178,13 +195,13 @@ function extendWithFsExtraApi(fs) {
         ensureSymlink: async (src, dest, type) => {
             if (fse.pathExistsSync(dest))
                 return;
-            await fse.mkdirs((0, path_1.dirname)(dest));
+            await fse.mkdirs((0, upath2_1.dirname)(dest));
             return fs.promises.symlink(src, dest, type);
         },
         ensureSymlinkSync: (src, dest, type) => {
             if (fse.pathExistsSync(dest))
                 return;
-            fse.mkdirsSync((0, path_1.dirname)(dest));
+            fse.mkdirsSync((0, upath2_1.dirname)(dest));
             return fs.symlinkSync(src, dest, type);
         },
         // ==================== Move / 移動 ====================
@@ -195,7 +212,7 @@ function extendWithFsExtraApi(fs) {
                     throw new Error('dest already exists.');
                 return;
             }
-            await fse.mkdirs((0, path_1.dirname)(dest));
+            await fse.mkdirs((0, upath2_1.dirname)(dest));
             return fs.promises.rename(src, dest);
         },
         moveSync: (src, dest, options) => {
@@ -204,7 +221,7 @@ function extendWithFsExtraApi(fs) {
                     throw new Error('dest already exists.');
                 return;
             }
-            fse.mkdirsSync((0, path_1.dirname)(dest));
+            fse.mkdirsSync((0, upath2_1.dirname)(dest));
             return fs.renameSync(src, dest);
         },
         // ==================== Copy / 複製 ====================
@@ -216,10 +233,10 @@ function extendWithFsExtraApi(fs) {
                     await fse.mkdirs(dest);
                 }
                 const items = await fs.promises.readdir(src);
-                await Promise.all(items.map(item => fse.copy((0, path_1.join)(src, item), (0, path_1.join)(dest, item), options)));
+                await Promise.all(items.map(item => fse.copy((0, upath2_1.join)(src, item), (0, upath2_1.join)(dest, item), options)));
             }
             else {
-                await fse.mkdirs((0, path_1.dirname)(dest));
+                await fse.mkdirs((0, upath2_1.dirname)(dest));
                 await fs.promises.copyFile(src, dest, (options === null || options === void 0 ? void 0 : options.overwrite) === false ? fs.constants.COPYFILE_EXCL : 0);
             }
         },
@@ -230,10 +247,10 @@ function extendWithFsExtraApi(fs) {
                     fse.mkdirsSync(dest);
                 }
                 const items = fs.readdirSync(src);
-                items.forEach(item => fse.copySync((0, path_1.join)(src, item), (0, path_1.join)(dest, item), options));
+                items.forEach(item => fse.copySync((0, upath2_1.join)(src, item), (0, upath2_1.join)(dest, item), options));
             }
             else {
-                fse.mkdirsSync((0, path_1.dirname)(dest));
+                fse.mkdirsSync((0, upath2_1.dirname)(dest));
                 fs.copyFileSync(src, dest, (options === null || options === void 0 ? void 0 : options.overwrite) === false ? fs.constants.COPYFILE_EXCL : 0);
             }
         },
@@ -287,13 +304,13 @@ function extendWithFsExtraApi(fs) {
         ensureFile: async (file) => {
             if (fse.pathExistsSync(file))
                 return;
-            await fse.mkdirs((0, path_1.dirname)(file));
+            await fse.mkdirs((0, upath2_1.dirname)(file));
             return fs.promises.writeFile(file, '');
         },
         ensureFileSync: (file) => {
             if (fse.pathExistsSync(file))
                 return;
-            fse.mkdirsSync((0, path_1.dirname)(file));
+            fse.mkdirsSync((0, upath2_1.dirname)(file));
             return fs.writeFileSync(file, '');
         },
         createFile: async (file) => fse.ensureFile(file),
@@ -312,6 +329,9 @@ function extendWithFsExtraApi(fs) {
     fse.writeJSONSync = fse.writeJsonSync;
     fse.outputJSON = fse.outputJson;
     fse.outputJSONSync = fse.outputJsonSync;
+    (_e = fse.StatWatcher) !== null && _e !== void 0 ? _e : (fse.StatWatcher = _fs.StatWatcher);
+    (_f = fse.FSWatcher) !== null && _f !== void 0 ? _f : (fse.FSWatcher = _fs.FSWatcher);
+    (_g = fse._toUnixTimestamp) !== null && _g !== void 0 ? _g : (fse._toUnixTimestamp = _fs._toUnixTimestamp);
     fse.fs = fse;
     return fse;
 }
@@ -320,6 +340,7 @@ function extendWithFsExtraApi(fs) {
  * Get underlying Volume from extended fs instance
  *
  * @param fs - 擴展後的檔案系統實例 / Extended filesystem instance
+ * @param notThrow
  * @returns 底層的 Volume 實例 / Underlying Volume instance
  *
  * @example
@@ -344,16 +365,85 @@ function extendWithFsExtraApi(fs) {
  *
  * @internal 來自官方原始碼
  */
-function getVolumeFromFs(fs) {
+function getVolumeFromFs(fs, notThrow) {
     var _a, _b;
     /**
      * 防止某些特殊狀況無法取得 __val
      */
     const vol = (_a = fs.__vol) !== null && _a !== void 0 ? _a : (_b = fs.fs) === null || _b === void 0 ? void 0 : _b.__vol;
-    if (!vol) {
+    if (!vol && !notThrow) {
         throw new TypeError(`The provided fs instance is not a memfs instance`);
     }
     return vol;
+}
+/**
+ * 從 unionfs 實例中找到 memfs Volume
+ * Find memfs Volume from unionfs instance
+ *
+ * @param fs - unionfs 實例 / unionfs instance
+ * @param fromRight - 是否從右側開始搜尋 / Whether to search from right side
+ * @returns 找到的 memfs 與 Volume 資訊 / Found memfs and Volume information
+ *
+ * @description 在 unionfs 的 fss 陣列中搜尋第一個 memfs Volume
+ * Searches for the first memfs Volume in unionfs's fss array
+ */
+function _unionfsFindMemFs(fs, fromRight) {
+    const fss = fs.fss;
+    const left = 0;
+    const right = fss.length;
+    let index;
+    /**
+     * 從右側開始搜尋
+     * Search from the right side
+     */
+    if (fromRight) {
+        for (let i = right - 1; i >= left; i--) {
+            const vol = getVolumeFromFs(fss[i], true);
+            if (vol) {
+                index = i;
+                break;
+            }
+        }
+    }
+    /**
+     * 從左側開始搜尋（預設）
+     * Search from the left side (default)
+     */
+    else {
+        for (let i = left; i < right; i++) {
+            const vol = getVolumeFromFs(fss[i], true);
+            if (vol) {
+                index = i;
+                break;
+            }
+        }
+    }
+    /**
+     * 找到時回傳結果
+     * Return result when found
+     */
+    if (index >= 0) {
+        return {
+            memfs: fss[index],
+            vol: fss[index].__vol,
+            index,
+        };
+    }
+    throw new TypeError(`The provided fs instance is not a unionfs instance`);
+}
+/**
+ * @todo FIXME: https://github.com/streamich/unionfs/issues/810
+ */
+function extendWithFsExtraApiFromUnionfs(ufs, opts) {
+    var _a, _b;
+    opts !== null && opts !== void 0 ? opts : (opts = {});
+    (_a = opts.getVolume) !== null && _a !== void 0 ? _a : (opts.getVolume = () => {
+        return _unionfsFindMemFs(ufs).vol;
+    });
+    (_b = opts.getFs) !== null && _b !== void 0 ? _b : (opts.getFs = () => {
+        return _unionfsFindMemFs(ufs).memfs;
+    });
+    return extendWithFsExtraApi(ufs, opts);
 }
 /**
  * 取得不支援的方法清單
@@ -364,7 +454,7 @@ function getVolumeFromFs(fs) {
  * @description 這些方法在 memfs 中無法實現或是因為瀏覽器環境限制
  * These methods cannot be implemented in memfs due to browser environment limitations
  */
-function _unSupportMethods() {
+function _getUnsupportMethods() {
     return [
         'FileReadStream',
         'FileWriteStream',
