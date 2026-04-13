@@ -4,6 +4,7 @@
     "importHelpers": true
   },
   "include": [
+    "fs-extra.ts",
     "index.ts"
   ]
 }

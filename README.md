@@ -25,6 +25,31 @@ npm install memfs-extra memfs @types/fs-extra
 
 ## 使用範例 (Usage Example)
 
+### Jest Mock 範例 (Jest Mock Example)
+
+這個範例展示了如何使用 `memfs-extra/fs-extra` 來 mock Node.js 的 `fs` 模組，使其具備 `fs-extra` 的 API 支援。
+
+```typescript
+//@noUnusedParameters:false
+/// <reference types="jest" />
+/// <reference types="node" />
+import fs from 'fs';
+
+jest.mock('fs', () => {
+	return require('memfs-extra/fs-extra');
+});
+
+jest.mock('fs/promises', () => {
+	return require('memfs-extra/fs-extra').promises;
+});
+
+describe('jest mock fs', () => {
+	it('should mock fs', () => {
+		expect(fs).toHaveProperty('readJSON');
+	});
+});
+```
+
 ### 使用 extendWithFsExtraApi（使用 memfs 匯出的 fs）
 
 ```typescript

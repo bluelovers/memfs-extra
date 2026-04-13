@@ -163,3 +163,4 @@ __fixtures__
 ./stories/
 ./global.tsdx.d.ts
 ./global.d.ts
+/openspec/
