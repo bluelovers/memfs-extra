@@ -27,6 +27,7 @@ describe('should have all expected fs-extra keys', () =>
 		...Object.keys(_fsExtra).reduce((acc, key) =>
 		{
 
+			// @ts-ignore
 			if (typeof _fsExtra[key] === 'function')
 			{
 				acc.push(key);
@@ -49,6 +50,7 @@ describe('should have all expected fs-extra keys', () =>
 		{
 			expect(fs).toHaveProperty(key);
 			expect(typeof (fs as any)[key]).toBe('function');
+			expect(typeof (fs as any)[key]).toMatchSnapshot();
 		});
 	});
 });
@@ -60,6 +62,7 @@ describe('should have all expected fs keys', () =>
 		...Object.keys(_fsNode).reduce((acc, key) =>
 		{
 
+			// @ts-ignore
 			if (typeof _fsNode[key] === 'function')
 			{
 				acc.push(key);
@@ -82,6 +85,34 @@ describe('should have all expected fs keys', () =>
 		{
 			expect(fs).toHaveProperty(key);
 			expect(typeof (fs as any)[key]).toBe('function');
+			expect(typeof (fs as any)[key]).toMatchSnapshot();
 		});
 	});
+})
+
+describe('check others', () =>
+{
+	const fs = extendWithFsExtraApi(_fs);
+
+	[
+		'StatWatcher',
+		'FSWatcher',
+		'WriteStream',
+		'ReadStream',
+		'promises',
+
+		'realpath',
+		'realpathSync',
+
+		'__vol',
+	]
+		.forEach(key =>
+		{
+			test(key, () =>
+			{
+				expect(fs).toHaveProperty(key);
+				expect(typeof (fs as any)[key]).toMatchSnapshot();
+			});
+		});
+
 })
