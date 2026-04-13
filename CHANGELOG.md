@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/bluelovers/memfs-extra/compare/memfs-extra@1.0.1...memfs-extra@1.0.2) (2026-04-13)
+
+
+
+### 🚨　Tests
+
+* **jest-mock:** 新增 fs volume 控制和 getVolumeFromFs 函數的測試 ([5159080](https://github.com/bluelovers/memfs-extra/commit/51590803981acff848efb0516d3f5c00c2b7580c))
+
+
+
 ## 1.0.1 (2026-04-13)
 
 

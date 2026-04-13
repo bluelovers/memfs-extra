@@ -7,7 +7,10 @@ export type { PathOrFileDescriptor as IPathOrFileDescriptor } from 'fs';
  * @description 擴展 memfs 以提供 fs-extra 風格的 API，包含路徑檢查、目錄操作、檔案操作等功能
  * Extends memfs to provide fs-extra style APIs for path checking, directory operations, file operations, etc.
  */
-export type IFakeFsExtra = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'>;
+export type IFakeFsExtraCore = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'>;
+export type IFakeFsExtra = IFakeFsExtraCore & {
+    fs: IFakeFsExtraCore;
+};
 /**
  * 使用 fs-extra 風格 API 擴展 memfs Volume 實例
  * Extend memfs Volume with fs-extra style APIs
@@ -29,7 +32,9 @@ export type IFakeFsExtra = Omit<typeof import('fs-extra'), 'FileReadStream' | 'F
  *
  * @see extendWithFsExtraApi - 如果使用 memfs 匯出的 fs，使用此函式
  */
-export declare function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T): IFs & IFakeFsExtra;
+export declare function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T): IFs & IFakeFsExtraCore & {
+    fs: IFakeFsExtraCore;
+};
 /**
  * 使用 fs-extra 風格 API 擴展 memfs
  * Extend memfs with fs-extra style APIs

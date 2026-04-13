@@ -1,6 +1,6 @@
 {
   "name": "memfs-extra",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "為 memfs 提供 fs-extra 的 API 擴展支援 (Providing fs-extra API extension support for memfs)",
   "keywords": [
     "memfs",

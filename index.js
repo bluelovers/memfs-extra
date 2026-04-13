@@ -312,6 +312,7 @@ function extendWithFsExtraApi(fs) {
     fse.writeJSONSync = fse.writeJsonSync;
     fse.outputJSON = fse.outputJson;
     fse.outputJSONSync = fse.outputJsonSync;
+    fse.fs = fse;
     return fse;
 }
 /**
