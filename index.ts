@@ -10,7 +10,11 @@ export type { PathOrFileDescriptor as IPathOrFileDescriptor } from 'fs';
  * @description 擴展 memfs 以提供 fs-extra 風格的 API，包含路徑檢查、目錄操作、檔案操作等功能
  * Extends memfs to provide fs-extra style APIs for path checking, directory operations, file operations, etc.
  */
-export type IFakeFsExtra = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'>;
+export type IFakeFsExtraCore = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'>;
+
+export type IFakeFsExtra = IFakeFsExtraCore & {
+	fs: IFakeFsExtraCore;
+};
 
 /**
  * 使用 fs-extra 風格 API 擴展 memfs Volume 實例
@@ -373,7 +377,7 @@ export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
 		createSymlinkSync: (src: string, dest: string, type?: any) => fse.ensureSymlinkSync(src, dest, type),
 		emptydir: async (dir: string) => fse.emptyDir(dir),
 		emptydirSync: (dir: string) => fse.emptyDirSync(dir),
-	} as any as IFakeFsExtra;
+	} as any as T & IFakeFsExtra;
 
 	(fse as any).readJSON = fse.readJson;
 	(fse as any).readJSONSync = fse.readJsonSync;
@@ -381,6 +385,8 @@ export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
 	(fse as any).writeJSONSync = fse.writeJsonSync;
 	(fse as any).outputJSON = fse.outputJson;
 	(fse as any).outputJSONSync = fse.outputJsonSync;
+
+	(fse as any).fs = fse;
 
 	return fse as any;
 }
