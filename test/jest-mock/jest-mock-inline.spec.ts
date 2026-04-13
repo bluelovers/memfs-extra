@@ -4,11 +4,17 @@
 import fs from 'fs';
 import { getVolumeFromFs } from '../../index';
 
-jest.mock('fs', () => {
+/**
+ * 此方法暫稱為 inline mock
+ * 必須直接放在測試項目內才會有效
+ */
+jest.mock('fs', () =>
+{
 	return require('memfs-extra/fs-extra');
 });
 
-jest.mock('fs/promises', () => {
+jest.mock('fs/promises', () =>
+{
 	return require('memfs-extra/fs-extra').promises;
 });
 
