@@ -1,7 +1,10 @@
 import { IFs, createFsFromVolume, Volume } from 'memfs';
-import { dirname, join } from 'path';
+import { dirname, join } from 'upath2';
 import { mkdtempDisposableSync } from 'fs';
+import { FsSynchronousApi } from '@jsonjoy.com/fs-node-utils/lib/types/FsSynchronousApi';
 export type { PathOrFileDescriptor as IPathOrFileDescriptor } from 'fs';
+import { typePredicates } from 'ts-type-predicates';
+import { ITSWriteable } from 'ts-type';
 
 /**
  * fs-extra 風格的檔案系統 API 型別
@@ -13,18 +16,28 @@ export type { PathOrFileDescriptor as IPathOrFileDescriptor } from 'fs';
 export type IFakeFsExtraCore = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'> & IFakeFsHasVol;
 
 export type IFakeFsHasVol = {
-	__vol: Volume;
+	readonly __vol: Volume;
 };
 
 export type IFakeFsExtra = IFakeFsExtraCore & {
-	fs: IFakeFsExtraCore;
+	readonly fs: IFakeFsExtraCore;
 };
+
+export type IMemFsExtra<T extends IFs = IFs> = T & IFakeFsExtra;
+
+export interface IOptionMemFsExtra
+{
+	getVolume?(): Volume | undefined;
+
+	getFs?(): IFs | undefined;
+}
 
 /**
  * 使用 fs-extra 風格 API 擴展 memfs Volume 實例
  * Extend memfs Volume with fs-extra style APIs
  *
  * @param vol - 要擴展的 Volume 實例（由 memfs 匯出 或 new Volume() 建立）/ Volume instance to extend
+ * @param opts - 擴展選項 / Extend options
  * @returns 擴展後的檔案系統 API / Extended file system APIs
  *
  * @example
@@ -41,9 +54,9 @@ export type IFakeFsExtra = IFakeFsExtraCore & {
  *
  * @see extendWithFsExtraApi - 如果使用 memfs 匯出的 fs，使用此函式
  */
-export function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T)
+export function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T, opts?: IOptionMemFsExtra)
 {
-	return extendWithFsExtraApi(createFsFromVolume(vol))
+	return extendWithFsExtraApi(createFsFromVolume(vol), opts)
 }
 
 /**
@@ -51,6 +64,7 @@ export function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T)
  * Extend memfs with fs-extra style APIs
  *
  * @param fs - 要擴展的 memfs 檔案系統實例（由 memfs 匯出）/ memfs filesystem instance (exported from memfs)
+ * @param opts - 擴展選項 / Extend options
  * @returns 擴展後的檔案系統 API / Extended file system APIs
  *
  * @example
@@ -67,10 +81,25 @@ export function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T)
  *
  * @see extendWithFsExtraApiFromVolume - 如果使用 new Volume()，使用此函式
  */
-export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
+export function extendWithFsExtraApi<T extends IFs>(fs: T | FsSynchronousApi | IFakeUnionfsLike, opts?: IOptionMemFsExtra): IMemFsExtra<T>
 {
+	const vol: Volume = opts?.getVolume?.() ?? (fs as any).__vol;
+
+	/**
+	 * @todo FIXME: https://github.com/streamich/unionfs/issues/810
+	 */
+	const _fs: IFs = opts?.getFs?.() ?? {} as any;
+
+	typePredicates<T>(fs);
+
 	const fse = {
+		..._fs,
 		...fs,
+
+		get __vol()
+		{
+			return vol;
+		},
 
 		// ==================== Path Exists / 路徑存在檢查 ====================
 		/** 檢查路徑是否存在（非同步）/ Check if path exists (async) */
@@ -381,18 +410,22 @@ export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
 		createSymlinkSync: (src: string, dest: string, type?: any) => fse.ensureSymlinkSync(src, dest, type),
 		emptydir: async (dir: string) => fse.emptyDir(dir),
 		emptydirSync: (dir: string) => fse.emptyDirSync(dir),
-	} as any as T & IFakeFsExtra;
+	} as any as ITSWriteable<IMemFsExtra<T>>;
 
-	(fse as any).readJSON = fse.readJson;
-	(fse as any).readJSONSync = fse.readJsonSync;
-	(fse as any).writeJSON = fse.writeJson;
-	(fse as any).writeJSONSync = fse.writeJsonSync;
-	(fse as any).outputJSON = fse.outputJson;
-	(fse as any).outputJSONSync = fse.outputJsonSync;
+	fse.readJSON = fse.readJson as any;
+	fse.readJSONSync = fse.readJsonSync as any;
+	fse.writeJSON = fse.writeJson as any;
+	fse.writeJSONSync = fse.writeJsonSync as any;
+	fse.outputJSON = fse.outputJson as any;
+	fse.outputJSONSync = fse.outputJsonSync as any;
 
-	(fse as any).fs = fse;
+	fse.StatWatcher ??= fs.StatWatcher;
+	fse.FSWatcher ??= fs.FSWatcher;
+	fse._toUnixTimestamp ??= fs._toUnixTimestamp;
 
-	return fse as any;
+	fse.fs = fse as any;
+
+	return fse;
 }
 
 /**
@@ -400,6 +433,7 @@ export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
  * Get underlying Volume from extended fs instance
  *
  * @param fs - 擴展後的檔案系統實例 / Extended filesystem instance
+ * @param notThrow
  * @returns 底層的 Volume 實例 / Underlying Volume instance
  *
  * @example
@@ -424,19 +458,87 @@ export function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsExtra
  *
  * @internal 來自官方原始碼
  */
-export function getVolumeFromFs(fs: IFs | unknown | IFakeFsHasVol): Volume
+export function getVolumeFromFs(fs: IFs | unknown | IFakeFsHasVol, notThrow?: boolean): Volume
 {
 	/**
 	 * 防止某些特殊狀況無法取得 __val
 	 */
 	const vol = (fs as any).__vol ?? (fs as any).fs?.__vol;
 
-	if (!vol)
+	if (!vol && !notThrow)
 	{
 		throw new TypeError(`The provided fs instance is not a memfs instance`)
 	}
 
 	return vol;
+}
+
+export function _unionfsFindMemFs<T extends IFakeUnionfsLike>(fs: T, fromRight?: boolean)
+{
+	const fss = (fs as any).fss as (IFs & IFakeFsHasVol)[];
+	let left = 0;
+	let right = fss.length;
+	let index: number;
+
+	if (fromRight)
+	{
+		for (let i = right - 1; i >= left; i--)
+		{
+			const vol = getVolumeFromFs(fss[i], true);
+			if (vol)
+			{
+				index = i;
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (let i = left; i < right; i++)
+		{
+			const vol = getVolumeFromFs(fss[i], true);
+			if (vol)
+			{
+				index = i;
+				break;
+			}
+		}
+	}
+
+	if (index >= 0)
+	{
+		return {
+			memfs: fss[index] as IFs,
+			vol: fss[index].__vol as Volume,
+			index,
+		}
+	}
+
+	throw new TypeError(`The provided fs instance is not a unionfs instance`)
+}
+
+interface IFakeUnionfsLike
+{
+	use(fs: any): any;
+
+	existsSync(path: any): boolean;
+}
+
+/**
+ * @todo FIXME: https://github.com/streamich/unionfs/issues/810
+ */
+export function extendWithFsExtraApiFromUnionfs<T extends IFakeUnionfsLike>(ufs: T, opts?: IOptionMemFsExtra)
+{
+	opts ??= {};
+	opts.getVolume ??= () =>
+	{
+		return _unionfsFindMemFs(ufs).vol;
+	};
+	opts.getFs ??= () =>
+	{
+		return _unionfsFindMemFs(ufs).memfs;
+	};
+	return extendWithFsExtraApi(ufs, opts)
 }
 
 /**
@@ -448,7 +550,7 @@ export function getVolumeFromFs(fs: IFs | unknown | IFakeFsHasVol): Volume
  * @description 這些方法在 memfs 中無法實現或是因為瀏覽器環境限制
  * These methods cannot be implemented in memfs due to browser environment limitations
  */
-export function _unSupportMethods()
+export function _getUnsupportMethods()
 {
 	return [
 		'FileReadStream',

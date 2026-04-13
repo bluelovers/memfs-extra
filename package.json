@@ -94,7 +94,10 @@
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
-    "tslib": "^2.8.1"
+    "ts-type": "^3.0.13",
+    "ts-type-predicates": "^1.0.13",
+    "tslib": "^2.8.1",
+    "upath2": "^3.1.23"
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.35",
@@ -106,6 +109,7 @@
     "@yarn-tool/ws-find-up-paths": "^1.0.19",
     "fs-extra": "^11.3.4",
     "jest": "^30.3.0",
-    "memfs": "^4.57.1"
+    "memfs": "^4.57.1",
+    "unionfs": "^4.6.0"
   }
 }

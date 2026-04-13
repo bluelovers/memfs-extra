@@ -5,6 +5,7 @@
   },
   "include": [
     "fs-extra.ts",
+    "unionfs.ts",
     "index.ts"
   ]
 }

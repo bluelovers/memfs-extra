@@ -76,6 +76,19 @@ describe('jest mock fs', () =>
 });
 ```
 
+#### 使用 unionfs 如果你希望同時看到「真實硬碟」和「記憶體虛擬硬碟」，
+
+```bash
+pnpm add unionfs
+```
+
+```ts
+jest.mock('fs', () =>
+{
+	return require('memfs-extra/unionfs');
+});
+```
+
 ### 使用 extendWithFsExtraApi（使用 memfs 匯出的 fs）
 
 ```typescript
@@ -179,3 +192,32 @@ const data = originalVol.toJSON();
 - `mkdtempDisposableSync(prefix)` - 建立可處置的臨時目錄
 - `statfsSync(path)` - 取得檔案系統統計資訊
 
+## FAQ
+
+### Q: Mock 後需要讀取真實的配置文件、測試樣本（fixtures）
+
+這是一個非常經典的挑戰！一旦你使用了 `jest.mock('fs')`，Jest 就會把整個 `fs` 模塊替換掉，導致你的測試環境變成了「全虛擬」的隔離空間。
+
+這是 Jest 提供的官方後門，讓你在 Mock 環境中依然能抓回原始的 fs 模塊。
+
+```ts
+jest.requireActual('fs')
+```
+
+### Q: 無限遞迴（Infinite Recursion）
+
+> RangeError: Maximum call stack size exceeded
+
+修正方案：使用 `jest.requireActual`
+
+如果你是在 `__mocks__/fs.js` 檔案中，或者是透過 `jest.mock` 的 factory function 定義，必須使用 Jest 提供的專門方法來獲取「真正的」原生模塊。
+
+```ts
+// __mocks__/fs.js
+const actualFs = jest.requireActual('fs');
+const Union = require('unionfs').Union;
+const ufs = new Union()
+	.use(require('memfs').fs)
+	.use(actualFs);
+module.exports = require('memfs-extra').extendWithFsExtraApiFromUnionfs(ufs);
+```
