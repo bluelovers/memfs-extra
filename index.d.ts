@@ -7,7 +7,10 @@ export type { PathOrFileDescriptor as IPathOrFileDescriptor } from 'fs';
  * @description 擴展 memfs 以提供 fs-extra 風格的 API，包含路徑檢查、目錄操作、檔案操作等功能
  * Extends memfs to provide fs-extra style APIs for path checking, directory operations, file operations, etc.
  */
-export type IFakeFsExtraCore = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'>;
+export type IFakeFsExtraCore = Omit<typeof import('fs-extra'), 'FileReadStream' | 'FileWriteStream' | 'Utf8Stream' | 'Dir' | 'gracefulify'> & IFakeFsHasVol;
+export type IFakeFsHasVol = {
+    __vol: Volume;
+};
 export type IFakeFsExtra = IFakeFsExtraCore & {
     fs: IFakeFsExtraCore;
 };
@@ -32,7 +35,7 @@ export type IFakeFsExtra = IFakeFsExtraCore & {
  *
  * @see extendWithFsExtraApi - 如果使用 memfs 匯出的 fs，使用此函式
  */
-export declare function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T): IFs & IFakeFsExtraCore & {
+export declare function extendWithFsExtraApiFromVolume<T extends Volume>(vol: T): IFs & Omit<typeof import("fs-extra"), "FileReadStream" | "FileWriteStream" | "Utf8Stream" | "Dir" | "gracefulify"> & IFakeFsHasVol & {
     fs: IFakeFsExtraCore;
 };
 /**
@@ -84,9 +87,9 @@ export declare function extendWithFsExtraApi<T extends IFs>(fs: T): T & IFakeFsE
  * console.log(data); // { "/test.txt": <Buffer> }
  * ```
  *
- * @internal
+ * @internal 來自官方原始碼
  */
-export declare function getVolumeFromFs(fs: IFs): Volume;
+export declare function getVolumeFromFs(fs: IFs | unknown | IFakeFsHasVol): Volume;
 /**
  * 取得不支援的方法清單
  * Get list of unsupported methods

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/bluelovers/memfs-extra/compare/memfs-extra@1.0.2...memfs-extra@1.0.3) (2026-04-13)
+
+
+
+### ✨　Features
+
+* **jest-mock:** 添加 Jest fs mock 支持及文档 ([53cca05](https://github.com/bluelovers/memfs-extra/commit/53cca05695d5b2f2467b1193bf1d80c38119631b))
+
+
+
 ## [1.0.2](https://github.com/bluelovers/memfs-extra/compare/memfs-extra@1.0.1...memfs-extra@1.0.2) (2026-04-13)
 
 

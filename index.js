@@ -342,13 +342,18 @@ function extendWithFsExtraApi(fs) {
  * console.log(data); // { "/test.txt": <Buffer> }
  * ```
  *
- * @internal
+ * @internal 來自官方原始碼
  */
 function getVolumeFromFs(fs) {
+    var _a, _b;
     /**
-     * 來自官方原始碼
+     * 防止某些特殊狀況無法取得 __val
      */
-    return fs.__vol;
+    const vol = (_a = fs.__vol) !== null && _a !== void 0 ? _a : (_b = fs.fs) === null || _b === void 0 ? void 0 : _b.__vol;
+    if (!vol) {
+        throw new TypeError(`The provided fs instance is not a memfs instance`);
+    }
+    return vol;
 }
 /**
  * 取得不支援的方法清單
